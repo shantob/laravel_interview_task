@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\BlogController;
+use App\Http\Controllers\Backend\TodoController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ProfileController;
 use App\Models\Blog;
@@ -24,8 +25,8 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    $blogs = Blog::with('comment')->where('status',1)->get();
-    return view('dashboard',compact('blogs'));
+    $blogs = Blog::with('comment')->where('status', 1)->get();
+    return view('dashboard', compact('blogs'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -40,6 +41,11 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AuthController::class, 'index'])->name('dashboard');
+
+    Route::post('/todos/store', [TodoController::class,'store']);
+    Route::put('/todos/{id}/update', [TodoController::class,'update']);
+    Route::resource('/todos', TodoController::class);
+
     Route::resource('/blog', BlogController::class);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
