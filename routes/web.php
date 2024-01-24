@@ -38,7 +38,7 @@ Route::middleware('auth')->group(function () {
 
 // Auth::routes(['register' => false, 'reset' => false, 'verify' => false]);
 
-Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AuthController::class, 'index'])->name('dashboard');
     Route::resource('/blog', BlogController::class);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

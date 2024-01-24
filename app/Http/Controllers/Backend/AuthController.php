@@ -23,13 +23,14 @@ class AuthController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $credentials = $request->only('email', 'password');
-
         if (Auth::guard('admin')->attempt($credentials)) {
             $user = Auth::guard('admin')->user();
             $request->session()->regenerate();
 
             return redirect()->route('admin.dashboard');
+
         }
+
         return redirect()->route('admin.login')->with('error', 'Invalid credentials');
     }
     /**
