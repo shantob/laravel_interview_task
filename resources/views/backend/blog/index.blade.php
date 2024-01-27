@@ -1,6 +1,13 @@
 @extends('layouts.admin_layout')
 @section('title', 'Blog Index')
 @section('content')
+<style>
+    .dt-buttons .dt-button span {
+        background-color: green;
+        color: white;
+        padding: 5px 7px
+    }
+</style>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.1.1/css/buttons.dataTables.min.css">
     <div class="content-wrapper text-lime-50 p-20 bg">
@@ -25,7 +32,6 @@
                     </div>
                 </div>
                 <!-- end page title -->
-
                 <div class="px-5">
                     <div class="col-12">
                         <div class="card bg-gray-500 text-lime-50">
